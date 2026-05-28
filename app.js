@@ -422,7 +422,6 @@ class App {
         this.memberSearchQuery = '';
         this.clearSearchBtn.style.display = 'none';
         this.renderMembers();
-        this.memberSearchInput.focus();
       });
     }
 
