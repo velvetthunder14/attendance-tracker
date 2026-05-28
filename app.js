@@ -806,9 +806,7 @@ class App {
 
       // Default Temp Data matching screenshot
       this.tempAvatar = '';
-      this.tempSchedules = [
-        { day: 'Mon', startTime: '08:00', endTime: '10:00' }
-      ];
+      this.tempSchedules = [];
       this.tempToggles = [];
       this.tempTags = [];
       this.setMemberStatus('active');
@@ -1097,15 +1095,12 @@ class App {
     const subtitle = this.profileSubtitleInput.value.trim();
     const categoryId = this.profileCategoryInput.value;
 
-    if (!name || !subtitle || !categoryId) {
+    if (!name || !categoryId) {
       this.showToast('Please fill all required details!');
       return;
     }
 
-    if (this.tempSchedules.length === 0) {
-      this.showToast('Please add at least one scheduling row!');
-      return;
-    }
+
 
     const compiledScheduleText = this.compileScheduleText(this.tempSchedules);
 
