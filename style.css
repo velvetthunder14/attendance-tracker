@@ -248,6 +248,13 @@ main {
   width: 100%;
 }
 
+#attendance-view {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 50px;
+}
+
 #profile-editor-view {
   display: flex;
   flex-direction: column;
