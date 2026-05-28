@@ -172,6 +172,7 @@ class App {
     this.categorySwitcherTitle = document.getElementById('category-switcher-title');
     this.switcherDropdown = document.getElementById('switcher-dropdown');
     this.memberSearchInput = document.getElementById('member-search-input');
+    this.clearSearchBtn = document.getElementById('clear-search-btn');
 
     // Profile Editor References (now inside bottom sheet modal)
     this.profileEditorView = document.getElementById('profile-editor-view');
@@ -409,8 +410,21 @@ class App {
     // Member Search Input keyup/input
     this.memberSearchInput.addEventListener('input', (e) => {
       this.memberSearchQuery = e.target.value.toLowerCase().trim();
+      if (this.clearSearchBtn) {
+        this.clearSearchBtn.style.display = this.memberSearchQuery ? 'flex' : 'none';
+      }
       this.renderMembers();
     });
+
+    if (this.clearSearchBtn) {
+      this.clearSearchBtn.addEventListener('click', () => {
+        this.memberSearchInput.value = '';
+        this.memberSearchQuery = '';
+        this.clearSearchBtn.style.display = 'none';
+        this.renderMembers();
+        this.memberSearchInput.focus();
+      });
+    }
 
     // Profile Name Input dynamic initials preview
     this.profileNameInput.addEventListener('input', () => {
@@ -1127,9 +1141,14 @@ class App {
       this.showToast(`Profile "${name}" created successfully!`);
     }
 
+    const savedMemberId = this.editingMemberId;
     this.saveData();
     this.showProfileModal(false);
     this.renderMembers();
+    
+    if (this.currentView === 'attendance' && savedMemberId === this.attendanceActiveMemberId) {
+      this.renderAttendanceView(false);
+    }
   }
 
   compileScheduleText(schedules) {
