@@ -1146,7 +1146,7 @@ class App {
   }
 
   compileScheduleText(schedules) {
-    if (!schedules || schedules.length === 0) return 'Upcoming: Everyday';
+    if (!schedules || schedules.length === 0) return 'Upcoming:';
     const first = schedules[0];
     let [hours, minutes] = first.startTime.split(':');
     hours = parseInt(hours);
@@ -1158,7 +1158,8 @@ class App {
 
   getUpcomingScheduleText(mem) {
     if (!mem.schedules || mem.schedules.length === 0) {
-      return mem.schedule ? mem.schedule.toUpperCase() : 'UPCOMING: EVERYDAY';
+      if (mem.schedule === 'Upcoming: Everyday' || mem.schedule === 'UPCOMING: EVERYDAY' || !mem.schedule) return 'UPCOMING:';
+      return mem.schedule.toUpperCase();
     }
 
     const now = new Date();

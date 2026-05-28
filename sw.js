@@ -1,4 +1,4 @@
-const CACHE_NAME = 'attendance-tracker-v91';
+const CACHE_NAME = 'attendance-tracker-v93';
 const ASSETS = [
   './',
   './index.html',
