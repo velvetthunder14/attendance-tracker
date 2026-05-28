@@ -193,7 +193,7 @@ class App {
     this.addTagBtn = document.getElementById('add-tag-btn');
     this.createProfileBtn = document.getElementById('create-profile-btn');
     this.headerSaveBtn = document.getElementById('header-save-btn');
-
+    
     // Member Activity Status References
     this.memberStatusCardActive = document.getElementById('profile-status-active');
     this.memberStatusCardInactive = document.getElementById('profile-status-inactive');
@@ -530,7 +530,7 @@ class App {
       e.stopPropagation();
       const activeDateString = this.formatDateString(this.attendanceActiveDate);
       const activeLog = this.attendanceLogs.find(log => log.memberId === this.attendanceActiveMemberId && log.date === activeDateString);
-
+      
       if (activeLog) {
         this.sessionLogDropdown.classList.toggle('active');
       } else {
@@ -544,7 +544,7 @@ class App {
       this.sessionLogDropdown.classList.remove('active');
       this.showSessionModal(true);
     });
-
+    
     document.getElementById('clear-session-option').addEventListener('click', (e) => {
       e.stopPropagation();
       this.sessionLogDropdown.classList.remove('active');
@@ -577,7 +577,7 @@ class App {
   // Switch App Views and toggle headers/buttons
   switchView(view, categoryId = null, memberId = null) {
     this.currentView = view;
-
+    
     // Reset scroll position to top whenever a new screen is loaded
     const mainContent = document.getElementById('main-content');
     if (mainContent) mainContent.scrollTop = 0;
@@ -1110,7 +1110,7 @@ class App {
     this.saveData();
     this.showProfileModal(false);
     this.renderMembers();
-
+    
     if (this.currentView === 'attendance' && savedMemberId === this.attendanceActiveMemberId) {
       this.renderAttendanceView(false);
     }
@@ -1633,17 +1633,17 @@ class App {
     const headerOptionsBtn = document.getElementById('header-member-options-btn');
     const headerDropdown = document.getElementById('header-member-dropdown');
     const headerEditBtn = document.getElementById('header-edit-member-btn');
-
+    
     if (headerOptionsBtn && headerDropdown) {
       // Remove old listeners to prevent duplicates if re-rendered
       const newBtn = headerOptionsBtn.cloneNode(true);
       headerOptionsBtn.parentNode.replaceChild(newBtn, headerOptionsBtn);
-
+      
       newBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         headerDropdown.classList.toggle('active');
       });
-
+      
       // Close dropdown when clicking outside
       document.addEventListener('click', (e) => {
         if (!newBtn.contains(e.target) && !headerDropdown.contains(e.target)) {
@@ -1667,17 +1667,17 @@ class App {
         mem.schedules.forEach(sch => {
           const div = document.createElement('div');
           div.className = 'schedule-list-item';
-
+          
           let displayHour = parseInt(sch.startTime.split(':')[0], 10);
           const displayMin = sch.startTime.split(':')[1];
           const ampm = displayHour >= 12 ? 'PM' : 'AM';
           displayHour = displayHour % 12 || 12;
-
+          
           let endDisplayHour = parseInt(sch.endTime.split(':')[0], 10);
           const endDisplayMin = sch.endTime.split(':')[1];
           const endAmpm = endDisplayHour >= 12 ? 'PM' : 'AM';
           endDisplayHour = endDisplayHour % 12 || 12;
-
+          
           div.textContent = `${sch.day}, ${displayHour}:${displayMin} ${ampm} - ${endDisplayHour}:${endDisplayMin} ${endAmpm}`;
           scheduleList.appendChild(div);
         });
@@ -1786,7 +1786,7 @@ class App {
     const activeMonth = this.attendanceActiveDate.getMonth();
     const activeYear = this.attendanceActiveDate.getFullYear();
     this.attendanceCalendarMonthYear.textContent = `${monthsLong[activeMonth]} ${activeYear}`;
-
+    
     this.activityMonthTitle.textContent = `${monthsLong[currentMonth]} Activity`;
 
     // 4. Session Log Card
@@ -1816,7 +1816,7 @@ class App {
           if (activeLog.toggles[k]) togglesSelected.push(k);
         });
       }
-
+      
       let tagsSelected = [];
       if (activeLog.tags) {
         Object.keys(activeLog.tags).forEach(k => {
@@ -1977,7 +1977,7 @@ class App {
 
     const dayCol = document.createElement('div');
     let dayClass = `calendar-day-col ${isSelected ? 'selected-day' : 'outer-day'}`;
-
+    
     const mem = this.members.find(m => m.id === this.attendanceActiveMemberId);
     if (mem && mem.schedules) {
       const isScheduled = mem.schedules.some(sch => sch.day === DAYS_SHORT[date.getDay()] || sch.day.substring(0, 3).toUpperCase() === DAYS_SHORT[date.getDay()].toUpperCase());
@@ -1990,7 +1990,7 @@ class App {
       <span class="calendar-day-lbl">${DAYS_SHORT[date.getDay()]}</span>
       <span class="calendar-date-lbl">${date.getDate()}</span>
     `;
-
+    
     // Add dot if log exists
     if (mem) {
       const log = this.attendanceLogs.find(l => l.memberId === mem.id && l.date === dStr);
@@ -2130,7 +2130,7 @@ class App {
 
       const cell = document.createElement('div');
       let cellClass = `grid-day-cell`;
-
+      
       if (isSelected) {
         if (log) {
           cellClass += ` selected-${log.status.toUpperCase() === 'PRESENT' ? 'present' : 'absent'}`;
